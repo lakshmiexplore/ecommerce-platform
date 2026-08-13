@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: product-service
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://product_user:product_pass123@mongodb.infra.svc.cluster.local:27017/product_db?authSource=product_db}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
