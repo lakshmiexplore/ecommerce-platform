@@ -1,0 +1,14 @@
+**/target/
+**/build/
+**/out/
+*.class
+*.jar
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/*
+!.vscode/settings.json
+*.log
+.env
