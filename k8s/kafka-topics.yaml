@@ -1,0 +1,38 @@
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata:
+  name: order-events
+  namespace: infra
+  labels:
+    strimzi.io/cluster: ecommerce-kafka
+spec:
+  partitions: 3
+  replicas: 1
+  config:
+    retention.ms: 604800000 # 7 Days
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata:
+  name: payment-events
+  namespace: infra
+  labels:
+    strimzi.io/cluster: ecommerce-kafka
+spec:
+  partitions: 3
+  replicas: 1
+  config:
+    retention.ms: 604800000
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata:
+  name: inventory-events
+  namespace: infra
+  labels:
+    strimzi.io/cluster: ecommerce-kafka
+spec:
+  partitions: 3
+  replicas: 1
+  config:
+    retention.ms: 604800000
