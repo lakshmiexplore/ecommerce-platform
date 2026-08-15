@@ -31,6 +31,11 @@ spring:
           predicates:
             - Path=/v1/inventory/**
 
+        - id: payment-service
+          uri: ${PAYMENT_SERVICE_URI:http://payment-service.dev.svc.cluster.local:8086}
+          predicates:
+            - Path=/v1/payments/**
+
       # Global CORS Configuration
       globalcors:
         cors-configurations:

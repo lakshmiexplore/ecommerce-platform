@@ -74,6 +74,16 @@ public class OrderService {
         return mapToResponse(savedOrder);
     }
 
+        @Transactional
+        public void updateOrderStatus(String orderNumber, OrderStatus status) {
+        orderRepository.findByOrderNumber(orderNumber).ifPresentOrElse(order -> {
+                order.setStatus(status);
+                orderRepository.save(order);
+                log.info("Order {} status updated to {}", orderNumber, status);
+        }, () -> log.warn("Order not found for update: {}", orderNumber));
+        }
+
+
     public List<OrderResponse> getAllOrders() {
         return orderRepository.findAll().stream()
                 .map(this::mapToResponse)
