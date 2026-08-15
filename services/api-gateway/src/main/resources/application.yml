@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        # Route 1: Product Service
+        - id: product-service
+          uri: ${PRODUCT_SERVICE_URI:http://product-service.dev.svc.cluster.local:8081}
+          predicates:
+            - Path=/v1/products/**
+
+        # Route 2: Customer Service
+        - id: customer-service
+          uri: ${CUSTOMER_SERVICE_URI:http://customer-service.dev.svc.cluster.local:8082}
+          predicates:
+            - Path=/v1/customers/**
+
+        # Route 3: Order Service
+        - id: order-service
+          uri: ${ORDER_SERVICE_URI:http://order-service.dev.svc.cluster.local:8083}
+          predicates:
+            - Path=/v1/orders/**
+
+        # Route 4: Inventory Service
+        - id: inventory-service
+          uri: ${INVENTORY_SERVICE_URI:http://inventory-service.dev.svc.cluster.local:8084}
+          predicates:
+            - Path=/v1/inventory/**
+
+      # Global CORS Configuration
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
